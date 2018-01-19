@@ -55,7 +55,7 @@ public class SkeletonBehaviour : MonoBehaviour
         {
             transform.LookAt(_player.gameObject.transform);
             // - Si ha pasado 1s o más desde el ultimo ataque ==> attack()
-            if (_timeToAttack >= 2.22)
+            if (_timeToAttack >= 1)
                 attack();
         }
         // Desplazar el collider en 'z' un multiplo del parametro Distance
@@ -63,13 +63,16 @@ public class SkeletonBehaviour : MonoBehaviour
         _timeToAttack += Time.deltaTime;
     }
 
-	public void attack()
-	{
-        if (GameManager.instance.soundEnabled)
-            attackAudio.PlayDelayed(0.7f);
-        // Activo el trigger "Attack"
-        animator.SetTrigger("Attack");
-        _timeToAttack = 0;
+    public void attack()
+    {
+        //Nos aseguramos de que para atacar, el enemigo no esté ejecutando la animación de atacar previamente.
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")){ 
+            if (GameManager.instance.soundEnabled)
+                attackAudio.PlayDelayed(0.7f);
+            // Activo el trigger "Attack"
+            animator.SetTrigger("Attack");
+            _timeToAttack = 0;
+        }
 	}
 
 	public void kill()

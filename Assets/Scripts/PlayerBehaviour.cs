@@ -117,9 +117,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (!paused)
         {
-            if (GameManager.instance.soundEnabled)
-                attackAudio.Play();
-            animator.SetTrigger("Attack");
+            //Nos aseguramos que la animación de atacar ha finalizado y podemos volver a atacar.
+            if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attack"))
+            {
+                if (GameManager.instance.soundEnabled)
+                    attackAudio.Play();
+                animator.SetTrigger("Attack");
+            }
         }
     }
 

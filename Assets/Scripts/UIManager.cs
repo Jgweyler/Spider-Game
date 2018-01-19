@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
         {
            HPImage=  Instantiate(spiderHPImage, HPContainer.transform);
             HPImage.transform.position = new Vector3(HPImage.transform.position.x + startPosition, HPImage.transform.position.y, HPImage.transform.position.z);
-            startPosition += 75;
+            startPosition += 100;
             spiderHPList.Add(HPImage);
         }
     }
